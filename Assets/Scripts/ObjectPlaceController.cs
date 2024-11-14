@@ -21,33 +21,7 @@ public class ObjectPlaceController : MonoBehaviour
         rotation = this.gameObject.transform.rotation;
         localScale = this.gameObject.transform.localScale;
 
-        textObject = new GameObject("Title");
-        textMeshPro = textObject.AddComponent<TextMeshProUGUI>();
-
-        // Set the text and its properties
-        textMeshPro.text = gameObject.name;
-        textMeshPro.fontSize = 0.04f;
-        textMeshPro.color = Color.black;
-
-        Canvas canvas = FindObjectOfType<Canvas>();
-        canvasObject = new GameObject("Canvas");
-        canvas = canvasObject.AddComponent<Canvas>();
-        RectTransform rectTransformc = canvasObject.GetComponent<RectTransform>();
-        rectTransformc.sizeDelta = new Vector2(0.2f, 0.05f);
-
-        //  Add a CanvasScaler for better scaling on different resolutions
-        canvasObject.AddComponent<CanvasScaler>();
-        canvasObject.AddComponent<GraphicRaycaster>();
-
-        // Position 
-        canvas.transform.SetParent(gameObject.transform);
-        textObject.transform.SetParent(canvas.transform);
-        RectTransform rectTransform = textObject.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(0.2f, 0.05f);
-
-        BoxCollider box = gameObject.GetComponentInParent<BoxCollider>();
-        //float posz = -(box.size.z / 2);
-        canvasObject.transform.localPosition = new Vector3(box.center.x, box.size.y / 2, box.center.z);
+        TextPerObject();
 
         canvasObject.SetActive(false);
     }
@@ -102,5 +76,44 @@ public class ObjectPlaceController : MonoBehaviour
             }
 
         }
+    }
+
+    public void TextPerObject()
+    {
+        textObject = new GameObject("Title");
+        textMeshPro = textObject.AddComponent<TextMeshProUGUI>();
+
+        // Set the text and its properties
+        textMeshPro.text = gameObject.name;
+        textMeshPro.fontSize = 0.04f;
+        textMeshPro.color = new Color32(16, 16, 16, 255); ;
+
+        Canvas canvas = FindObjectOfType<Canvas>();
+        canvasObject = new GameObject("Canvas");
+        canvas = canvasObject.AddComponent<Canvas>();
+        RectTransform rectTransformc = canvasObject.GetComponent<RectTransform>();
+        rectTransformc.sizeDelta = new Vector2(0.2f, 0.05f);
+
+        //  Add a CanvasScaler for better scaling on different resolutions
+        canvasObject.AddComponent<CanvasScaler>();
+        canvasObject.AddComponent<GraphicRaycaster>();
+
+        // Position 
+        canvas.transform.SetParent(gameObject.transform);
+        textObject.transform.SetParent(canvas.transform);
+        RectTransform rectTransform = textObject.GetComponent<RectTransform>();
+        rectTransform.sizeDelta = new Vector2(0.2f, 0.05f);
+
+        BoxCollider box = gameObject.GetComponentInParent<BoxCollider>();
+        //float posz = -(box.size.z / 2);
+        canvasObject.transform.localPosition = new Vector3(box.center.x, box.size.y / 2, box.center.z);
+    }
+
+    public void TextCameraOverlay()
+    {
+        canvasObject = GameObject.Find("CanvasText");
+        GameObject textObject = GameObject.Find("ObjectNameText");
+        textMeshPro = textObject.GetComponent<TextMeshProUGUI>();
+        textMeshPro.text = gameObject.name;
     }
 }
