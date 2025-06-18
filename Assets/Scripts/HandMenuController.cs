@@ -61,6 +61,7 @@ public class HandMenuController : MonoBehaviour
     public void MenuPressed()
     {
 
+        string[] allMain = { "Pump", "Coupling", "Motor" };
         string[] allPump = { "Reconstruct", "Coupling", "Motor" };
         string[] allCoupling = { "Reconstruct", "Pump", "Motor" };
         string[] allMotor = { "Reconstruct", "Pump", "Coupling" };
@@ -221,6 +222,11 @@ public class HandMenuController : MonoBehaviour
             else if (gameObject.name.Contains("Stator"))
             {
                 Reconstruct("Stator", true);
+            }
+            else if (gameObject.name.Contains("Reconstruct"))
+            {
+                foreach (string i in allMain)
+                    Reconstruct(i, false);
             }
 
 
